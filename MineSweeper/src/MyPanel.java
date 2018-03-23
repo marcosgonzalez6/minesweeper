@@ -103,6 +103,18 @@ public class MyPanel extends JPanel {
 		return bombs;
 	}
 	
+	public boolean AdjacentBomb(int gridX, int gridY) {
+		if (colorArray[x-1][y-1].equals(Color.BLACK) || colorArray[x-1][y+1].equals(Color.BLACK) || colorArray[x+1][y-1].equals(Color.BLACK) || colorArray[x+1][y+1].equals(Color.BLACK) || colorArray[x][y-1].equals(Color.BLACK) || colorArray[x][y+1].equals(Color.BLACK) || colorArray[x-1][y].equals(Color.BLACK) || colorArray[x+1][y].equals(Color.BLACK)) {
+			return true;
+//			repaint();
+//			break;
+	}
+		else {
+			return false;
+		}
+		
+	}
+	
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
@@ -144,7 +156,7 @@ public class MyPanel extends JPanel {
 		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
 			return x;
 		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}
 		return x;
@@ -167,11 +179,12 @@ public class MyPanel extends JPanel {
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
+		
+		if (x == 0 && y == TOTAL_ROWS - 1) {    // -1 The lower left extra cell
 			return y;
 		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
-			return -1;
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   // Outside the rest of the grid
+			return - 1; //-1
 		}
 		return y;
 	}

@@ -1,4 +1,6 @@
 import java.awt.Color;
+import javax.swing.JOptionPane;
+
 import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
@@ -30,12 +32,16 @@ public class MyMouseAdapter extends MouseAdapter {
 				myPanel.y = y;
 				myPanel.mouseDownGridX = myPanel.getGridX(x, y);
 				myPanel.mouseDownGridY = myPanel.getGridY(x, y);
-				//might not be necessary to change color to gray here
-//				Color newColor = Color.GRAY;
-//				
-//				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-//				myPanel.repaint();
+							
+				if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)) 
+					break;
+		
+		
+				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
+				myPanel.repaint();
 				break;
+	
+
 				
 			case 3:		//Right mouse button
 				Component d = e.getComponent();
@@ -63,8 +69,12 @@ public class MyMouseAdapter extends MouseAdapter {
 				if(myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY].equals(Color.RED)) {
 					newColor2 = Color.WHITE;
 				}
+				else if (myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY].equals(Color.GRAY)) {
+					break;
 			
-		myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY] = newColor2;
+				}
+			
+				myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY] = newColor2;
 				myPanel2.repaint();
 				break;
 				
@@ -110,6 +120,8 @@ public class MyMouseAdapter extends MouseAdapter {
 				} 	
 				else {
 					Color newColor = Color.GRAY;
+					if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)) 
+						break;
 					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;	
 				}	
 			
@@ -124,8 +136,11 @@ public class MyMouseAdapter extends MouseAdapter {
 							myPanel.colorArray[xBombLocation][yBombLocation] = Color.BLACK;
 						}
 						myPanel.repaint();
-						break;
-//						System.exit(0);
+						JOptionPane.showMessageDialog(null, "GAME OVER!");
+						System.exit(0);
+						
+					
+					
 					}
 				}
 							
@@ -134,8 +149,10 @@ public class MyMouseAdapter extends MouseAdapter {
 						
 					
 //				}
-				
+		
 				myPanel.repaint();
+				
+				
 				break;
 				
 			case 3:		//Right mouse button
