@@ -11,7 +11,8 @@ public class MyPanel extends JPanel {
 	private static final int GRID_Y = 25;
 	private static final int INNER_CELL_SIZE = 40;
 	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 9;   
+	private static final int TOTAL_ROWS = 9;
+	private int[][] bombs = makeBombArray();
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -32,7 +33,11 @@ public class MyPanel extends JPanel {
 				colorArray[x][y] = Color.WHITE;
 			}
 		}
+//		bombs = makeBombArray();
+//		boolean[][] bombs = new boolean[TOTAL_ROWS][TOTAL_COLUMNS];
+//		setBoolean(bombs, 4, true);
 	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -68,7 +73,36 @@ public class MyPanel extends JPanel {
 		}
 	}
 
-
+	// This method makes an array of bombs 10 x 2
+	// x coordinates are in the first column and y coordinates are in the second column
+	public int[][] makeBombArray() {     
+		
+		int[][] bombArray = new int[10][2];
+		
+		for (int i = 0; i < 10; i++) {
+			Bomb bomb = new Bomb();
+			bombArray[i][0] = bomb.getX();
+			bombArray[i][1] = bomb.getY();
+	
+			for (int k = 0; k < 10; k++) {
+				if (i == 0) {
+					break;
+				}
+				else if (k == i) {
+					break;
+				}
+				else if ((bombArray[i][0] == bombArray[k][0]) && (bombArray[i][1] == bombArray[k][1])) {
+					i += -1;
+				}				
+			}	
+		}
+		return bombArray;
+	}
+	
+	public int[][] getBombs() {
+		return bombs;
+	}
+	
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
@@ -88,8 +122,7 @@ public class MyPanel extends JPanel {
 
 	}
 	
-
-
+	
 
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
@@ -116,6 +149,7 @@ public class MyPanel extends JPanel {
 		}
 		return x;
 	}
+	
 	public int getGridY(int x, int y) {
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
@@ -142,3 +176,5 @@ public class MyPanel extends JPanel {
 		return y;
 	}
 }
+
+
