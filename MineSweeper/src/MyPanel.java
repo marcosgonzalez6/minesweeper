@@ -122,7 +122,23 @@ public class MyPanel extends JPanel {
 
 	}
 	
-	
+	public int hasAdjacent(int x, int y) {
+		int numAdjacentBombs = 0;
+		for (int s = -1; s < 2; s++) {
+			for (int r = 0; r < 10; r++) {
+				if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y-1))) {
+					numAdjacentBombs += 1;
+				}
+				if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y))) {
+					numAdjacentBombs += 1;
+				}
+				if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y+1))) {
+					numAdjacentBombs += 1;
+				}
+			}
+		}
+		return numAdjacentBombs;
+	}
 
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
@@ -144,7 +160,7 @@ public class MyPanel extends JPanel {
 		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
 			return x;
 		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}
 		return x;
@@ -170,7 +186,7 @@ public class MyPanel extends JPanel {
 		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
 			return y;
 		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 2) {   //Outside the rest of the grid
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
 			return -1;
 		}
 		return y;

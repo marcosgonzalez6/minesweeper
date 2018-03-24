@@ -3,8 +3,6 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
-
 import javax.swing.JFrame;
 
 public class MyMouseAdapter extends MouseAdapter {
@@ -64,7 +62,7 @@ public class MyMouseAdapter extends MouseAdapter {
 					newColor2 = Color.WHITE;
 				}
 			
-		myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY] = newColor2;
+				myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY] = newColor2;
 				myPanel2.repaint();
 				break;
 				
@@ -117,6 +115,7 @@ public class MyMouseAdapter extends MouseAdapter {
 					if ((gridX == myPanel.getBombs()[i][0]) && (gridY == myPanel.getBombs()[i][1])) {
 						System.out.println("GAME OVER");
 						myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.BLACK;
+						myPanel.repaint();
 						
 						for (int t = 0; t < 10; t++) {
 							int xBombLocation = myPanel.getBombs()[t][0];
@@ -125,15 +124,14 @@ public class MyMouseAdapter extends MouseAdapter {
 						}
 						myPanel.repaint();
 						break;
-//						System.exit(0);
 					}
 				}
-							
-				
-							
-						
-					
-//				}
+				if ((myPanel.hasAdjacent(gridX, gridY) != 0) && !(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.BLACK))) {
+					System.out.println(myPanel.hasAdjacent(gridX, gridY));
+					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
+					myPanel.repaint();
+					break;
+				}
 				
 				myPanel.repaint();
 				break;
@@ -169,10 +167,10 @@ public class MyMouseAdapter extends MouseAdapter {
 						if ((myPanel2.mouseDownGridX != gridXX) || (myPanel2.mouseDownGridY != gridYY)) {
 							//Released the mouse button on a different cell where it was pressed
 							//Do nothing
-						} else {
-							//Released the mouse button on the same cell where it was pressed
-							if ((gridXX == 0) || (gridYY == 0)) {
-								//On the left column and on the top row... do nothing
+//						} else {
+//							//Released the mouse button on the same cell where it was pressed
+//							if ((gridXX == 0) || (gridYY == 0)) {
+//								//On the left column and on the top row... do nothing
 							} else {
 								//On the grid other than on the left column and on the top row:
 								
@@ -181,7 +179,7 @@ public class MyMouseAdapter extends MouseAdapter {
 									break;
 								}
 								
-							}
+//							}
 						}
 					}
 				}
