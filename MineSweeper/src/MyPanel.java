@@ -33,9 +33,6 @@ public class MyPanel extends JPanel {
 				colorArray[x][y] = Color.WHITE;
 			}
 		}
-//		bombs = makeBombArray();
-//		boolean[][] bombs = new boolean[TOTAL_ROWS][TOTAL_COLUMNS];
-//		setBoolean(bombs, 4, true);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -106,18 +103,6 @@ public class MyPanel extends JPanel {
 	
 	public int[][] getBombs() {
 		return bombs;
-	}
-	
-	public boolean AdjacentBomb(int gridX, int gridY) {
-		if (colorArray[x-1][y-1].equals(Color.BLACK) || colorArray[x-1][y+1].equals(Color.BLACK) || colorArray[x+1][y-1].equals(Color.BLACK) || colorArray[x+1][y+1].equals(Color.BLACK) || colorArray[x][y-1].equals(Color.BLACK) || colorArray[x][y+1].equals(Color.BLACK) || colorArray[x-1][y].equals(Color.BLACK) || colorArray[x+1][y].equals(Color.BLACK)) {
-			return true;
-//			repaint();
-//			break;
-	}
-		else {
-			return false;
-		}
-		
 	}
 	
 	// This method helps to find the adjacent boxes that don't have a mine.

@@ -105,7 +105,6 @@ public class MyMouseAdapter extends MouseAdapter {
 			
 				for(int i = 0; i < 10; i++) {	
 					if ((gridX == myPanel.getBombs()[i][0]) && (gridY == myPanel.getBombs()[i][1])) {
-						System.out.println("GAME OVER");
 						myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.BLACK;
 						myPanel.repaint();
 						for (int t = 0; t < 10; t++) {
@@ -114,7 +113,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							myPanel.colorArray[xBombLocation][yBombLocation] = Color.BLACK;
 						}
 						myPanel.repaint();
-						JOptionPane.showMessageDialog(null, "GAME OVER!");
+						JOptionPane.showMessageDialog(null, "GAME OVER!");   //Pops up a window when bomb is clicked and window is closed
 						System.exit(0);
 					}
 				}
@@ -125,7 +124,6 @@ public class MyMouseAdapter extends MouseAdapter {
 						break;
 					}
 					else {
-						System.out.println(myPanel.hasAdjacent(gridX, gridY));
 						myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.BLUE;
 						myPanel.repaint();
 						break;
