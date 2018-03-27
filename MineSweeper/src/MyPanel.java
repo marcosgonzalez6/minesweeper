@@ -69,6 +69,11 @@ public class MyPanel extends JPanel {
 				Color c = colorArray[x][y];
 				g.setColor(c);
 				g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
+		
+				if (c.equals(Color.BLUE)) {
+					g.setColor(Color.WHITE);
+					g.drawString(Integer.toString(hasAdjacent(x,y)), (x+1)*(INNER_CELL_SIZE+1), (y+1)*(INNER_CELL_SIZE+1) );
+				}
 			}
 		}
 	}
@@ -133,6 +138,25 @@ public class MyPanel extends JPanel {
 		System.out.println("Test");
 
 	}
+	
+	// This method finds the number of bombs adjacent to the square clicked 
+		public int hasAdjacent(int x, int y) {
+			int numAdjacentBombs = 0;
+			for (int s = -1; s < 2; s++) {															 // to check all 8 surrounding spaces
+				for (int r = 0; r < 10; r++) {       												 // to check all 10 bombs
+					if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y-1))) {
+						numAdjacentBombs += 1;
+					}
+					if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y))) {
+						numAdjacentBombs += 1;
+					}
+					if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y+1))) {
+						numAdjacentBombs += 1;
+					}
+				}
+			}
+			return numAdjacentBombs;
+		}
 	
 	
 
