@@ -69,7 +69,13 @@ public class MyPanel extends JPanel {
 				Color c = colorArray[x][y];
 				g.setColor(c);
 				g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
-			}
+			
+		
+		if (c.equals(Color.BLUE)) {
+			g.setColor(Color.WHITE);
+			g.drawString(Integer.toString(hasAdjacent(x,y)), (x+1)*(INNER_CELL_SIZE+1), (y+1)*(INNER_CELL_SIZE+1) );
+		}
+		}
 		}
 	}
 
@@ -103,6 +109,18 @@ public class MyPanel extends JPanel {
 		return bombs;
 	}
 	
+	public boolean AdjacentBomb(int gridX, int gridY) {
+		if (colorArray[x-1][y-1].equals(Color.BLACK) || colorArray[x-1][y+1].equals(Color.BLACK) || colorArray[x+1][y-1].equals(Color.BLACK) || colorArray[x+1][y+1].equals(Color.BLACK) || colorArray[x][y-1].equals(Color.BLACK) || colorArray[x][y+1].equals(Color.BLACK) || colorArray[x-1][y].equals(Color.BLACK) || colorArray[x+1][y].equals(Color.BLACK)) {
+			return true;
+//			repaint();
+//			break;
+	}
+		else {
+			return false;
+		}
+		
+	}
+	
 	// This method helps to find the adjacent boxes that don't have a mine.
 	// It is partially implemented since the verify hasn't been discussed in class
 	// Verify that the coordinates in the parameters are valid.
@@ -122,23 +140,26 @@ public class MyPanel extends JPanel {
 
 	}
 	
-	public int hasAdjacent(int x, int y) {
-		int numAdjacentBombs = 0;
-		for (int s = -1; s < 2; s++) {
-			for (int r = 0; r < 10; r++) {
-				if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y-1))) {
-					numAdjacentBombs += 1;
-				}
-				if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y))) {
-					numAdjacentBombs += 1;
-				}
-				if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y+1))) {
-					numAdjacentBombs += 1;
+	// This method finds the number of bombs adjacent to the square clicked 
+		public int hasAdjacent(int x, int y) {
+			int numAdjacentBombs = 0;
+			for (int s = -1; s < 2; s++) {															 // to check all 8 surrounding spaces
+				for (int r = 0; r < 10; r++) {       												 // to check all 10 bombs
+					if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y-1))) {
+						numAdjacentBombs += 1;
+					}
+					if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y))) {
+						numAdjacentBombs += 1;
+					}
+					if ((this.getBombs()[r][0] == (x+s)) && (this.getBombs()[r][1] == (y+1))) {
+						numAdjacentBombs += 1;
+					}
 				}
 			}
+			return numAdjacentBombs;
 		}
-		return numAdjacentBombs;
-	}
+	
+	
 
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
@@ -183,11 +204,12 @@ public class MyPanel extends JPanel {
 		}
 		x = x / (INNER_CELL_SIZE + 1);
 		y = y / (INNER_CELL_SIZE + 1);
-		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
+		
+		if (x == 0 && y == TOTAL_ROWS - 1) {    // -1 The lower left extra cell
 			return y;
 		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   //Outside the rest of the grid
-			return -1;
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1) {   // Outside the rest of the grid
+			return - 1; //-1
 		}
 		return y;
 	}

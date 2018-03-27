@@ -4,6 +4,7 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class MyMouseAdapter extends MouseAdapter {
 	public void mousePressed(MouseEvent e) {
@@ -28,11 +29,14 @@ public class MyMouseAdapter extends MouseAdapter {
 				myPanel.y = y;
 				myPanel.mouseDownGridX = myPanel.getGridX(x, y);
 				myPanel.mouseDownGridY = myPanel.getGridY(x, y);
-				//might not be necessary to change color to gray here
-//				Color newColor = Color.GRAY;
-//				
-//				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-//				myPanel.repaint();
+				
+				if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED))
+				break;
+				if (myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.BLUE))
+					break;
+				
+//				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.WHITE;
+				myPanel.repaint();
 				break;
 				
 			case 3:		//Right mouse button
@@ -61,6 +65,11 @@ public class MyMouseAdapter extends MouseAdapter {
 				if(myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY].equals(Color.RED)) {
 					newColor2 = Color.WHITE;
 				}
+				else if (myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY].equals(Color.GRAY))
+					break;
+				
+				else if (myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY].equals(Color.BLUE))
+					break;
 			
 				myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY] = newColor2;
 				myPanel2.repaint();
@@ -108,6 +117,9 @@ public class MyMouseAdapter extends MouseAdapter {
 				} 	
 				else {
 					Color newColor = Color.GRAY;
+					if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.RED)) {
+						break;
+					}
 					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;	
 				}	
 			
@@ -123,12 +135,13 @@ public class MyMouseAdapter extends MouseAdapter {
 							myPanel.colorArray[xBombLocation][yBombLocation] = Color.BLACK;
 						}
 						myPanel.repaint();
-						break;
+						JOptionPane.showMessageDialog(null,  "GAME OVER!");
+						System.exit(0);
 					}
 				}
 				if ((myPanel.hasAdjacent(gridX, gridY) != 0) && !(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY].equals(Color.BLACK))) {
 					System.out.println(myPanel.hasAdjacent(gridX, gridY));
-					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.GRAY;
+					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.BLUE;
 					myPanel.repaint();
 					break;
 				}
@@ -167,19 +180,22 @@ public class MyMouseAdapter extends MouseAdapter {
 						if ((myPanel2.mouseDownGridX != gridXX) || (myPanel2.mouseDownGridY != gridYY)) {
 							//Released the mouse button on a different cell where it was pressed
 							//Do nothing
-//						} else {
-//							//Released the mouse button on the same cell where it was pressed
-//							if ((gridXX == 0) || (gridYY == 0)) {
-//								//On the left column and on the top row... do nothing
+						} else {
+							//Released the mouse button on the same cell where it was pressed
+							if ((gridXX == 0) || (gridYY == 0)) {
+								//On the left column and on the top row... do nothing
 							} else {
 								//On the grid other than on the left column and on the top row:
 								
 								if(myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY].equals(Color.RED)) {
 									myPanel2.repaint();
 									break;
-								}
 								
-//							}
+								}
+								if (myPanel2.colorArray[myPanel2.mouseDownGridX][myPanel2.mouseDownGridY].equals(Color.BLUE))
+									break;
+								
+							}
 						}
 					}
 				}
@@ -191,4 +207,5 @@ public class MyMouseAdapter extends MouseAdapter {
 				break;
 		}
 	}
+
 }
